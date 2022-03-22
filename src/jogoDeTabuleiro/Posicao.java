@@ -2,23 +2,23 @@ package jogoDeTabuleiro;
 
 public class Posicao {
 
-    private Integer fila;
+    private Integer linha;
     private Integer coluna;
 
     public Posicao() {
     }
 
-    public Posicao(Integer fila, Integer coluna) {
-        this.fila = fila;
+    public Posicao(Integer linha, Integer coluna) {
+        this.linha = linha;
         this.coluna = coluna;
     }
 
-    public Integer getFila() {
-        return fila;
+    public Integer getLinha() {
+        return linha;
     }
 
-    public void setFila(Integer fila) {
-        this.fila = fila;
+    public void setLinha(Integer linha) {
+        this.linha = linha;
     }
 
     public Integer getColuna() {
@@ -31,6 +31,6 @@ public class Posicao {
 
     @Override
     public String toString() {
-        return fila + ", " + coluna;
+        return linha + ", " + coluna;
     }
 }

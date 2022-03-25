@@ -32,7 +32,7 @@ public class Tabuleiro {
 
     public Peca peca (Posicao posicao){
         if (!posicaoExiste(posicao)){
-            throw new TabuleiroException("Posição não está no tabuleiro.");
+            throw new TabuleiroException("Posição não existe no tabuleiro.");
         }
         return pecas[posicao.getLinha()][posicao.getColuna()];
     }
@@ -43,6 +43,19 @@ public class Tabuleiro {
         }
         pecas[posicao.getLinha()][posicao.getColuna()] = peca;
         peca.posicao = posicao;
+    }
+
+    public Peca removerPeca(Posicao posicao){
+        if (!posicaoExiste(posicao)){
+            throw new TabuleiroException("Posição não existe no tabuleiro");
+        }
+        if (peca(posicao) == null){
+            return null;
+        }
+        Peca aux = peca(posicao);
+        aux.posicao = null;
+        pecas[posicao.getLinha()][posicao.getColuna()] = null;
+        return aux;
     }
 
     private boolean posicaoExiste(int linha, int coluna){

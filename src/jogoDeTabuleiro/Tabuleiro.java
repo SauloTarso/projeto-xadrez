@@ -2,13 +2,13 @@ package jogoDeTabuleiro;
 
 public class Tabuleiro {
 
-    private Integer linhas;
-    private Integer colunas;
+    private int linhas;
+    private int colunas;
     private Peca[][] pecas;
 
-    public Tabuleiro(Integer linhas, Integer colunas) {
+    public Tabuleiro(int linhas, int colunas) {
         if (linhas < 1 || colunas < 1){
-            throw new TabuleiroException("Erro criando tabuleiro: deverá ter ao menos 1 linha e 1 coluna");
+            throw new TabuleiroException("Erro criando tabuleiro: devera ter ao menos 1 linha e 1 coluna");
         }
         this.linhas = linhas;
         this.colunas = colunas;
@@ -25,21 +25,21 @@ public class Tabuleiro {
 
     public Peca peca (int linhas, int colunas){
         if (!posicaoExiste(linhas,colunas)){
-            throw new TabuleiroException("Posição não está no tabuleiro.");
+            throw new TabuleiroException("Posicao nao existe no tabuleiro.");
         }
         return pecas[linhas][colunas];
     }
 
     public Peca peca (Posicao posicao){
         if (!posicaoExiste(posicao)){
-            throw new TabuleiroException("Posição não existe no tabuleiro.");
+            throw new TabuleiroException("Posicao nao existe no tabuleiro.");
         }
         return pecas[posicao.getLinha()][posicao.getColuna()];
     }
 
     public void colocarPeca(Peca peca, Posicao posicao){
         if (existeUmaPeca(posicao)){
-            throw new TabuleiroException("Já existe uma peça na posição " + posicao);
+            throw new TabuleiroException("Ja existe uma peca na posicao " + posicao);
         }
         pecas[posicao.getLinha()][posicao.getColuna()] = peca;
         peca.posicao = posicao;
@@ -47,7 +47,7 @@ public class Tabuleiro {
 
     public Peca removerPeca(Posicao posicao){
         if (!posicaoExiste(posicao)){
-            throw new TabuleiroException("Posição não existe no tabuleiro");
+            throw new TabuleiroException("Posicao nao existe no tabuleiro");
         }
         if (peca(posicao) == null){
             return null;
@@ -68,7 +68,7 @@ public class Tabuleiro {
 
     public boolean existeUmaPeca(Posicao posicao){
         if (!posicaoExiste(posicao)){
-            throw new TabuleiroException("Posição não está no tabuleiro.");
+            throw new TabuleiroException("Posicao nao esta no tabuleiro.");
         }
         return peca(posicao) != null;
     }

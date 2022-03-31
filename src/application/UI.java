@@ -1,11 +1,15 @@
 package application;
 
 import xadrez.Cor;
+import xadrez.PartidaDeXadrez;
 import xadrez.PecaDeXadrez;
 import xadrez.PosicaoXadrez;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class UI {
 
@@ -28,7 +32,7 @@ public class UI {
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
-    public static void limparTela(){
+    public static void limparTela() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
@@ -40,30 +44,70 @@ public class UI {
             int linha = Integer.parseInt(s.substring(1));
             return new PosicaoXadrez(coluna, linha);
         } catch (RuntimeException e) {
-            throw new InputMismatchException("Erro lendo posição de xadrez: Valores válidos são de a1 até h8.");
+            throw new InputMismatchException("Erro lendo posicao de xadrez: Valores validos sao de a1 ata h8.");
         }
 
+    }
+
+    public static void imprimirPartida(PartidaDeXadrez partidaDeXadrez, List<PecaDeXadrez> capturada) {
+        imprimirTabuleiro(partidaDeXadrez.getPecas());
+        System.out.println();
+        imprimirPecasCapituradas(capturada);
+        System.out.println();
+        System.out.println("Turno : " + partidaDeXadrez.getTurno());
+        System.out.println("Aguardando jogador: " + partidaDeXadrez.getJogadorAtual());
     }
 
     public static void imprimirTabuleiro(PecaDeXadrez[][] pecas) {
         for (int i = 0; i < pecas.length; i++) {
             System.out.print((8 - i) + " ");
             for (int j = 0; j < pecas.length; j++) {
-                imprimirPeca(pecas[i][j]);
+                imprimirPeca(pecas[i][j], false);
             }
             System.out.println();
         }
         System.out.println("  a b c d e f g h");
     }
 
-    private static void imprimirPeca(PecaDeXadrez peca) {
+    public static void imprimirTabuleiro(PecaDeXadrez[][] pecas, boolean[][] movimentosPossiveis) {
+        for (int i = 0; i < pecas.length; i++) {
+            System.out.print((8 - i) + " ");
+            for (int j = 0; j < pecas.length; j++) {
+                imprimirPeca(pecas[i][j], movimentosPossiveis[i][j]);
+            }
+            System.out.println();
+        }
+        System.out.println("  a b c d e f g h");
+    }
+
+    private static void imprimirPeca(PecaDeXadrez peca, boolean colorir) {
+        if (colorir) {
+            System.out.print(ANSI_BLUE_BACKGROUND);
+        }
         if (peca == null) {
-            System.out.print("-");
-        } else if (peca.getCor() == Cor.BRANCO) {
-            System.out.print(ANSI_WHITE + peca + ANSI_RESET);
+            System.out.print("-" + ANSI_RESET);
         } else {
-            System.out.print(ANSI_YELLOW + peca + ANSI_RESET);
+            if (peca.getCor() == Cor.BRANCO) {
+                System.out.print(ANSI_WHITE + peca + ANSI_RESET);
+            } else {
+                System.out.print(ANSI_YELLOW + peca + ANSI_RESET);
+            }
         }
         System.out.print(" ");
+    }
+
+    private static void imprimirPecasCapituradas(List<PecaDeXadrez> capturada) {
+        List<PecaDeXadrez> branco = capturada.stream().filter(x -> x.getCor() == Cor.BRANCO).collect(Collectors.toList());
+        List<PecaDeXadrez> preto = capturada.stream().filter(x -> x.getCor() == Cor.PRETO).collect(Collectors.toList());
+        System.out.println("Peças capturadas:");
+        System.out.print("Branca: ");
+        System.out.print(ANSI_WHITE);
+        System.out.println(Arrays.toString(branco.toArray()));
+        System.out.print(ANSI_RESET);
+        System.out.print("Preta: ");
+        System.out.print(ANSI_YELLOW);
+        System.out.println(Arrays.toString(preto.toArray()));
+        System.out.print(ANSI_RESET);
+
     }
 }

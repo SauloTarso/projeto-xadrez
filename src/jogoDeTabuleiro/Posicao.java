@@ -2,13 +2,10 @@ package jogoDeTabuleiro;
 
 public class Posicao {
 
-    private Integer linha;
-    private Integer coluna;
+    private int linha;
+    private int coluna;
 
-    public Posicao() {
-    }
-
-    public Posicao(Integer linha, Integer coluna) {
+    public Posicao(int linha, int coluna) {
         this.linha = linha;
         this.coluna = coluna;
     }

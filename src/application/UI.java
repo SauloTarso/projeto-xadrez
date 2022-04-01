@@ -56,6 +56,9 @@ public class UI {
         System.out.println();
         System.out.println("Turno : " + partidaDeXadrez.getTurno());
         System.out.println("Aguardando jogador: " + partidaDeXadrez.getJogadorAtual());
+        if (partidaDeXadrez.getCheck()){
+            System.out.println("CHECK!");
+        }
     }
 
     public static void imprimirTabuleiro(PecaDeXadrez[][] pecas) {
@@ -99,7 +102,7 @@ public class UI {
     private static void imprimirPecasCapituradas(List<PecaDeXadrez> capturada) {
         List<PecaDeXadrez> branco = capturada.stream().filter(x -> x.getCor() == Cor.BRANCO).collect(Collectors.toList());
         List<PecaDeXadrez> preto = capturada.stream().filter(x -> x.getCor() == Cor.PRETO).collect(Collectors.toList());
-        System.out.println("Peças capturadas:");
+        System.out.println("Pecas capturadas:");
         System.out.print("Branca: ");
         System.out.print(ANSI_WHITE);
         System.out.println(Arrays.toString(branco.toArray()));

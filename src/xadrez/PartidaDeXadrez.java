@@ -5,7 +5,6 @@ import jogoDeTabuleiro.Posicao;
 import jogoDeTabuleiro.Tabuleiro;
 import pecas.xadres.*;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

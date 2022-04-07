@@ -35,13 +35,17 @@ public class Program {
 
                 PecaDeXadrez capturarPeca = partidaDeXadrez.executarMovimentoXadrez(origem, destino);
 
-                if (capturarPeca != null){
+                if (capturarPeca != null) {
                     capturar.add(capturarPeca);
                 }
 
-                if (partidaDeXadrez.getPromocao() != null){
+                if (partidaDeXadrez.getPromocao() != null) {
                     System.out.print("Escolha a peca de promocao (B/C/T/A): ");
                     String tipo = sc.nextLine().toUpperCase();
+                    while (!tipo.equals("B") && !tipo.equals("C") && !tipo.equals("T") & !tipo.equals("A")) {
+                        System.out.print("Valor invalido! Escolha a peca de promocao (B/C/T/A): ");
+                        tipo = sc.nextLine().toUpperCase();
+                    }
                     partidaDeXadrez.substituirPecaPromovida(tipo);
                 }
             } catch (XadrezException e) {
@@ -53,6 +57,6 @@ public class Program {
             }
         }
         UI.limparTela();
-        UI.imprimirPartida(partidaDeXadrez,capturar);
+        UI.imprimirPartida(partidaDeXadrez, capturar);
     }
 }
